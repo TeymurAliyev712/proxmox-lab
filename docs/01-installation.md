@@ -3,7 +3,7 @@
 ## Goal
 Deploy Proxmox VE inside VMware to practice hypervisor management.
 
-## Steps (high level)
+## Steps
 1. Created a VMware VM (nested virtualization enabled).
 2. Attached Proxmox ISO and installed Proxmox VE.
 3. Verified access to Proxmox Web UI.
