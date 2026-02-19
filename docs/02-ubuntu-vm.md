@@ -3,7 +3,7 @@
 ## Goal
 Create and run an Ubuntu Server VM inside Proxmox.
 
-## Steps (high level)
+## Steps 
 1. Uploaded Ubuntu Server ISO to Proxmox.
 2. Created VM (CPU/RAM/Disk).
 3. Installed Ubuntu Server and verified SSH/network access.
