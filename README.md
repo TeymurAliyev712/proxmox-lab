@@ -29,3 +29,7 @@ Notes and step-by-step docs are in `docs/`.
 
 ## How to reproduce
 See `docs/01-installation.md` and `docs/02-ubuntu-vm.md`.
+## Screenshots
+- `screenshots/01-proxmox-dashboard.png`
+- `screenshots/02-vm-list.png`
+- `screenshots/03-ubuntu-network.png`
