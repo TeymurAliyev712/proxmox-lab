@@ -1,0 +1,38 @@
+services:
+  db:
+    image: postgres:16
+    container_name: db
+    environment:
+      POSTGRES_USER: appuser
+      POSTGRES_PASSWORD: StrongPass123!
+      POSTGRES_DB: appdb
+    networks:
+      - lab-net
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer:latest
+    container_name: adminer
+    ports:
+      - "8081:8080"
+    networks:
+      - lab-net
+    depends_on:
+      - db
+
+  web:
+    image: nginx:latest
+    container_name: web
+    ports:
+      - "8080:80"
+    networks:
+      - lab-net
+
+networks:
+  lab-net:
+    name: lab-net
+    driver: bridge
+
+volumes:
+  db_data:
