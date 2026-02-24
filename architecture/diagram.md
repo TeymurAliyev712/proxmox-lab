@@ -1,25 +1,35 @@
+
+```markdown
 # Architecture (Proxmox → Ubuntu VM → Docker Lab)
 
 ```mermaid
 flowchart TB
-    A[Windows 11 Host] --> B[VMware (nested)]
-    B --> C[Proxmox VE]
-    C --> D[Ubuntu Server VM]
+  %% Client
+  U[Your laptop browser]
 
-    subgraph Docker on Ubuntu
-      N[Docker bridge network: lab-net]
-      W[nginx container (web)\nports: 8080->80]
-      P[postgres:16 container (db)\ninternal:5432]
-      AD[adminer container\nports: 8081->8080]
-      W --- N
-      P --- N
-      AD --- N
+  %% Host stack
+  subgraph HOST[Windows 11 host]
+    VMW[VMware nested virtualization]
+    PVE[Proxmox VE]
+    UB[Ubuntu Server VM]
+    VMW --> PVE --> UB
+  end
+
+  %% Docker stack
+  subgraph DOCKER[Docker on Ubuntu]
+    subgraph NET[Bridge network: lab-net]
+      WEB[nginx container]
+      ADM[Adminer container]
+      DB[(Postgres container)]
     end
 
-    D --> W
-    D --> P
-    D --> AD
+    VOL[(Named volume: db_data)] --- DB
+  end
 
-    U[Your laptop browser] -->|http://VM_IP:8080| W
-    U -->|http://VM_IP:8081| AD
-    AD -->|connects to db via name "db"| P
+  %% Traffic
+  U -->|HTTP 8080| WEB
+  U -->|HTTP 8081| ADM
+  ADM -->|connects to DB host: db| DB
+
+  %% Notes (optional)
+  WEB -. serves static or reverse proxy .- WEB
